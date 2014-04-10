@@ -61,7 +61,6 @@ namespace TyrionGameProject
             }
             */
             EntityManager.Add(texblock);
-
             EntityManager.Add(touchPanel);
             
 
