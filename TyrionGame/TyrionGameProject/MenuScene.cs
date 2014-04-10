@@ -8,6 +8,7 @@ using WaveEngine.Framework;
 using WaveEngine.Framework.Graphics;
 using WaveEngine.Framework.Physics2D;
 using WaveEngine.Framework.Services;
+using WaveEngine.Components.Transitions;
 
 namespace TyrionGameProject
 {
@@ -39,7 +40,7 @@ namespace TyrionGameProject
             };
             button.Click += (s, o) =>
             {
-                WaveServices.ScreenContextManager.To(new ScreenContext(new MyScene()));
+                WaveServices.ScreenContextManager.To(new ScreenContext(new MyScene()), new SpinningSquaresTransition(TimeSpan.FromSeconds(2.0f)));
             };
             EntityManager.Add(button);
         }

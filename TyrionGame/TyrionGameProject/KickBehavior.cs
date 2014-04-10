@@ -5,6 +5,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using WaveEngine.Common.Graphics;
 using WaveEngine.Common.Math;
 using WaveEngine.Components.UI;
 using WaveEngine.Framework;
@@ -30,6 +31,7 @@ namespace TyrionGameProject
         private TimeSpan timer; 
         private double velocity; 
         private int score;
+        private int attempt;
 
         private MyScene myScene;
 
@@ -38,7 +40,8 @@ namespace TyrionGameProject
             this.first = true;
             this.kickReceived = false;
             this.timer = TimeSpan.Zero;
-            this.score = 0;  
+            this.score = 0;
+            this.attempt = 0;
         }
 
         protected override void ResolveDependencies()
@@ -51,38 +54,52 @@ namespace TyrionGameProject
         {
             if (WaveServices.Input.TouchPanelState.Count > 0)
             {
-                if (this.first)
+                if(this.attempt < 4)
                 {
-                    // Save the first position
-                    this.pressedPosition = WaveServices.Input.TouchPanelState[0].Position; 
-                    this.first = false;
+                    if (this.first)
+                    {
+                        // Save the first position
+                        this.pressedPosition = WaveServices.Input.TouchPanelState[0].Position;
+                        this.first = false;
+                    }
+                    else
+                    {
+                        this.timer += gameTime;
+                    }
+
+                    var touchPosition = WaveServices.Input.TouchPanelState[0].Position;
+
+                    WaveServices.ViewportManager.RecoverPosition(ref touchPosition);
+
+                    this.RenderManager.LineBatch2D.DrawPointVM(touchPosition, 5, Color.White);
+
+                    if (this.collider.Contain(touchPosition) && !this.kickReceived && !WaveServices.Input.TouchPanelState[0].IsNew)
+                    {
+                        // Save the last position
+                        this.collisionPosition = WaveServices.Input.TouchPanelState[0].Position;
+                        //SoundBank bank = new SoundBank(Assets);
+                        //WaveServices.SoundPlayer.RegisterSoundBank(bank);
+                        //WaveServices.ViewportManager.RecoverPosition(ref this.collisionPosition);
+
+                        double distance = Math.Sqrt(Math.Pow((collisionPosition.X - pressedPosition.X), 2) +
+                                Math.Pow((collisionPosition.Y - pressedPosition.Y), 2));
+                        this.velocity = distance / this.timer.Milliseconds;
+                        this.score += Convert.ToInt32(this.velocity * this.velocity * 100.0);
+                        this.kickReceived = true;
+                        Debug.WriteLine("DENTRO");
+                        Debug.WriteLine("Distancia " + distance.ToString());
+                        Debug.WriteLine("velocidad " + velocity.ToString());
+                        Debug.WriteLine("Puntos " + score.ToString());
+                        var text = EntityManager.Find<TextBlock>("ScoreTextBlock");
+                        text.Text = score.ToString();
+                        // TODO: Insert into this method score properties
+                        //this.myScene.KickReceived()
+                        this.attempt++;
+                        var at = EntityManager.Find<TextBlock>("AttemptTextBlock");
+                        at.Text = this.attempt + "/4";
+                        
+                    }
                 }
-                else
-                {
-                    this.timer += gameTime; 
-                }
-
-                var touchPosition = WaveServices.Input.TouchPanelState[0].Position;
-                if(this.collider.Contain(touchPosition) && !this.kickReceived)
-                {
-                    // Save the last position
-                    this.collisionPosition = WaveServices.Input.TouchPanelState[0].Position;
-                    double distance = Math.Sqrt(Math.Pow((collisionPosition.X - pressedPosition.X), 2) + 
-                            Math.Pow((collisionPosition.Y - pressedPosition.Y), 2));
-                    this.velocity = distance / this.timer.Milliseconds;
-                    this.score += Convert.ToInt32(this.velocity*100.0);
-                    this.kickReceived = true;
-                    Debug.WriteLine("DENTRO");
-                    Debug.WriteLine("Distancia " + distance.ToString());
-                    Debug.WriteLine("velocidad " + velocity.ToString());
-                    Debug.WriteLine("Puntos " + score.ToString());
-                    var text = EntityManager.Find<TextBlock>("ScoreTextBlock");
-                    text.Text = score.ToString();
-                    // TODO: Insert into this method score properties
-                    //this.myScene.KickReceived()
-                }       
-
-
             }
             else
             {
@@ -93,6 +110,12 @@ namespace TyrionGameProject
                     this.kickReceived = false;
                 }
             }
+            //}
+            //else
+            //{
+            //    WaveServices.ScreenContextManager.To(new ScreenContext(new GameOverScene()));
+            //}
+            
         }
     }
 }

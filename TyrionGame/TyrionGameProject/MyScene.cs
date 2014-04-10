@@ -20,6 +20,7 @@ namespace TyrionGameProject
         {
             RenderManager.BackgroundColor = Color.Gray;
             RenderManager.DebugLines = true;
+            
             Entity background = new Entity()
                  .AddComponent(new Transform2D()
                 { 
@@ -27,20 +28,20 @@ namespace TyrionGameProject
                 })
                 .AddComponent(new StretchBehavior())
                 .AddComponent(new Sprite("Content/background.wpk"))
-                .AddComponent(new SpriteRenderer(DefaultLayers.Opaque));
+                .AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
             EntityManager.Add(background);
-
+            
             Entity tyrion = new Entity()
                 .AddComponent(new Transform2D()
                 {
                     Origin = new Vector2(0.5f,1f),
-                    X = WaveServices.ViewportManager.VirtualWidth/2,
-                    Y = WaveServices.ViewportManager.VirtualHeight-67,
+                    X = WaveServices.ViewportManager.VirtualWidth / 2,
+                    Y = WaveServices.ViewportManager.VirtualHeight - 67
                 })
                 .AddComponent(new RectangleCollider())
                 .AddComponent(new KickBehavior())
                 .AddComponent(new Sprite("Content/tyrion.wpk"))
-                .AddComponent(new SpriteRenderer(DefaultLayers.Opaque));
+                .AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
             EntityManager.Add(tyrion);
 
             Entity touchPanel = new Entity("TouchPanel")
@@ -52,18 +53,20 @@ namespace TyrionGameProject
             { 
                 Text = "Score: 0", 
                 VerticalAlignment = WaveEngine.Framework.UI.VerticalAlignment.Top,
-                HorizontalAlignment = WaveEngine.Framework.UI.HorizontalAlignment.Right 
+                HorizontalAlignment = WaveEngine.Framework.UI.HorizontalAlignment.Left, 
+                //FontPath = "8BIT WONDER"
             };
-            /*
+            
             TextBlock attempt = new TextBlock("AttemptTextBlock")
             {
-                Tex
-            }
-            */
+                Text = "0/4",
+                VerticalAlignment = WaveEngine.Framework.UI.VerticalAlignment.Top,
+                HorizontalAlignment = WaveEngine.Framework.UI.HorizontalAlignment.Right
+            };
+            
             EntityManager.Add(texblock);
             EntityManager.Add(touchPanel);
-            
-
+            EntityManager.Add(attempt);
         }
 
         public void KickReceived(float score)
