@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="Game.cs" />
     <Compile Include="KickBehavior.cs" />
+    <Compile Include="MenuScene.cs" />
     <Compile Include="MyScene.cs" />
     <Compile Include="TouchesRenderer.cs" />
   </ItemGroup>
