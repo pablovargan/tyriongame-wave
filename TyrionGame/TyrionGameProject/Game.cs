@@ -20,7 +20,7 @@ namespace TyrionGameProject
 
             WaveServices.ViewportManager.Activate(768, 1024, ViewportManager.StretchMode.Uniform);
 
-            ScreenContext screenContext = new ScreenContext(new MyScene());
+            ScreenContext screenContext = new ScreenContext(new MenuScene());
             WaveServices.ScreenContextManager.To(screenContext);
         }
 

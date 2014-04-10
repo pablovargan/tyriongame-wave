@@ -81,6 +81,8 @@ namespace TyrionGameProject
                     // TODO: Insert into this method score properties
                     //this.myScene.KickReceived()
                 }       
+
+
             }
             else
             {

@@ -62,7 +62,7 @@
     <None Include="Content\background.wpk">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Content\background768.wpk">
+    <None Include="Content\title.wpk">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Content\touch.wpk">
