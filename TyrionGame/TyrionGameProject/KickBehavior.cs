@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WaveEngine.Common.Graphics;
 using WaveEngine.Common.Math;
+using WaveEngine.Components.Transitions;
 using WaveEngine.Components.UI;
 using WaveEngine.Framework;
 using WaveEngine.Framework.Graphics;
@@ -99,6 +100,10 @@ namespace TyrionGameProject
                         at.Text = this.attempt + "/4";
                         
                     }
+                }
+                else
+                {
+                    WaveServices.ScreenContextManager.To(new ScreenContext(new GameOverScene(this.score)), new ZoomTransition(TimeSpan.FromSeconds(2.0f)));
                 }
             }
             else

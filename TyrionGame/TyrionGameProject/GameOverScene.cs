@@ -14,8 +14,12 @@ using WaveEngine.Framework.Managers;
 
 namespace TyrionGameProject
 {
-    class GameOverScene : Scene
+    public class GameOverScene : Scene
     {
+        private int score;
+
+        public GameOverScene(int score) { this.score = score; }
+
         protected override void CreateScene()
         {
             RenderManager.BackgroundColor = Color.Black;
@@ -29,16 +33,27 @@ namespace TyrionGameProject
                    });
 
             EntityManager.Add(title);*/
+            TextBlock scoreEnd = new TextBlock("scoreEndTextBlock")
+            {
+                Text = "Score\n" + this.score.ToString(),
+                VerticalAlignment = WaveEngine.Framework.UI.VerticalAlignment.Top,
+                HorizontalAlignment = WaveEngine.Framework.UI.HorizontalAlignment.Center,
+                DrawOrder = 3f,
+            };
+
+            EntityManager.Add(scoreEnd);
 
             Button button = new Button()
                 {
                     Text = "Restart?",
                     IsBorder = false,
-                    Width = 600,
-                    Height = 200,
+                    Width = 700,
+                    Height = 500,
+                    HorizontalAlignment = WaveEngine.Framework.UI.HorizontalAlignment.Right,
+                    VerticalAlignment = WaveEngine.Framework.UI.VerticalAlignment.Center,
                     //BackgroundImage = "Content/button.wpk",
                     //PressedBackgroundImage = "Content/buttonPressed.wpk",
-                    Margin = new WaveEngine.Framework.UI.Thickness(76, 800, 0, 0)
+                    Margin = new WaveEngine.Framework.UI.Thickness(100, 400, 0, 0)
                 };
             button.Click += (s, o) =>
             {

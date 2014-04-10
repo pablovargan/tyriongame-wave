@@ -19,7 +19,7 @@ namespace TyrionGameProject
         protected override void CreateScene()
         {
             RenderManager.BackgroundColor = Color.Gray;
-            RenderManager.DebugLines = true;
+            //RenderManager.DebugLines = true;
             
             Entity background = new Entity()
                  .AddComponent(new Transform2D()
@@ -44,8 +44,8 @@ namespace TyrionGameProject
                 .AddComponent(new SpriteRenderer(DefaultLayers.Alpha));
             EntityManager.Add(tyrion);
 
-            Entity touchPanel = new Entity("TouchPanel")
-                .AddComponent(new TouchesRenderer("Content/touch.wpk"));
+            //Entity touchPanel = new Entity("TouchPanel")
+            //    .AddComponent(new TouchesRenderer("Content/touch.wpk"));
 
 
             // Score
@@ -65,7 +65,7 @@ namespace TyrionGameProject
             };
             
             EntityManager.Add(texblock);
-            EntityManager.Add(touchPanel);
+            //EntityManager.Add(touchPanel);
             EntityManager.Add(attempt);
         }
 

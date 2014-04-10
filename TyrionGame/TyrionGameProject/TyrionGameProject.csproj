@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Game.cs" />
+    <Compile Include="GameOverScene.cs" />
     <Compile Include="KickBehavior.cs" />
     <Compile Include="MenuScene.cs" />
     <Compile Include="MyScene.cs" />
