@@ -62,6 +62,15 @@
     <None Include="Content\background.wpk">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Content\button.wpk">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\buttonPressed.wpk">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\mainScene.wpk">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Content\title.wpk">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

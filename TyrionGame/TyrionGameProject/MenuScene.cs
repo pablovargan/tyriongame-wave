@@ -1,4 +1,5 @@
 ﻿using System;
+using WaveEngine.Common.Math;
 using WaveEngine.Common.Graphics;
 using WaveEngine.Components.Gestures;
 using WaveEngine.Components.Graphics2D;
@@ -15,48 +16,32 @@ namespace TyrionGameProject
         protected override void CreateScene()
         {
             RenderManager.BackgroundColor = Color.Black;
-            int offset = 100;
 
-            var title = new Entity("Title")
-                        .AddComponent(new Sprite("Content/title.wpk"))
+            Entity background = new Entity()
+                        .AddComponent(new Sprite("Content/mainScene.wpk"))
                         .AddComponent(new SpriteRenderer(DefaultLayers.Alpha))
                         .AddComponent(new Transform2D()
                         {
-                            Y = WaveServices.Platform.ScreenWidth / 2 - offset,
-                            X = WaveServices.Platform.ScreenHeight / 2 - 150
-                        });
-            EntityManager.Add(title);
+                            DrawOrder = 1
+                        })
+                        .AddComponent(new StretchBehavior());
+            EntityManager.Add(background);
 
-            var playButtonEntity = new Entity("Play")
-                                .AddComponent(new Transform2D()
-                                {
-                                    Y = WaveServices.Platform.ScreenHeight / 2,
-                                    X = WaveServices.Platform.ScreenWidth / 2,
-                                    XScale = 2f,
-                                    YScale = 2f
-                                })
-                                .AddComponent(new TextControl()
-                                {
-                                    Text = "Play",
-                                    Foreground = Color.White,
-                                })
-                                .AddComponent(new TextControlRenderer())
-                                .AddComponent(new RectangleCollider())
-                                .AddComponent(new TouchGestures());
-
-            playButtonEntity.FindComponent<TouchGestures>().TouchPressed += new EventHandler<GestureEventArgs>(play_TouchPressed);
-
-            EntityManager.Add(playButtonEntity);
-        }
-
-        protected override void Start()
-        {
-            base.Start();
-        }
-
-        private void play_TouchPressed(object sender, GestureEventArgs e)
-        {
-            WaveServices.ScreenContextManager.To(new ScreenContext(new MyScene()));
+            Button button = new Button()
+            {
+                Text = string.Empty,
+                IsBorder = false,
+                Width = 600,
+                Height = 200,
+                BackgroundImage = "Content/button.wpk",
+                PressedBackgroundImage = "Content/buttonPressed.wpk",
+                Margin = new WaveEngine.Framework.UI.Thickness(76,800,0,0)
+            };
+            button.Click += (s, o) =>
+            {
+                WaveServices.ScreenContextManager.To(new ScreenContext(new MyScene()));
+            };
+            EntityManager.Add(button);
         }
     }
 }
