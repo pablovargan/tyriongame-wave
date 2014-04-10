@@ -18,14 +18,24 @@ namespace TyrionGameProject
     {
         protected override void CreateScene()
         {
-            RenderManager.BackgroundColor = Color.CornflowerBlue;
-            RenderManager.DebugLines = true;
+            RenderManager.BackgroundColor = Color.Gray;
+            //RenderManager.DebugLines = true;
+            Entity background = new Entity()
+                 .AddComponent(new Transform2D()
+                { 
+                    DrawOrder = 1
+                })
+                .AddComponent(new StretchBehavior())
+                .AddComponent(new Sprite("Content/background768.wpk"))
+                .AddComponent(new SpriteRenderer(DefaultLayers.Opaque));
+            EntityManager.Add(background);
+
             Entity tyrion = new Entity()
                 .AddComponent(new Transform2D()
                 {
                     Origin = new Vector2(0.5f,1f),
-                    X = WaveServices.Platform.ScreenWidth/2,
-                    Y = WaveServices.Platform.ScreenHeight,
+                    X = WaveServices.ViewportManager.VirtualWidth/2,
+                    Y = WaveServices.ViewportManager.VirtualHeight,
                 })
                 .AddComponent(new RectangleCollider())
                 .AddComponent(new KickBehavior())

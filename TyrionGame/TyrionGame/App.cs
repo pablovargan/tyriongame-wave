@@ -21,8 +21,8 @@ namespace TyrionGame
 
         public App()
         {
-            this.Width = 800;
-            this.Height = 600;
+            this.Width = 768;
+            this.Height = 1024;
             this.FullScreen = false;
             this.WindowTitle = "TyrionGame";
         }

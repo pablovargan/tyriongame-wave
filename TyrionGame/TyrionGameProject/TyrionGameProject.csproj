@@ -50,6 +50,7 @@
     <Compile Include="Game.cs" />
     <Compile Include="KickBehavior.cs" />
     <Compile Include="MyScene.cs" />
+    <Compile Include="StretchBehavior.cs" />
     <Compile Include="TouchesRenderer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
